@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlRoot">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lindas Palm | لنداز بالم</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            olive: { DEFAULT: '#3B4E24', dark: '#2C391B', light: '#526A33' },
+            cream: { DEFAULT: '#FAF6E8', warm: '#FFFDF7', dark: '#EFECD8' },
+            sage: { DEFAULT: '#C6D89E', light: '#E3F0C8', dark: '#A5BC74' },
+            blush: { DEFAULT: '#F2C4C4', light: '#F9E3E3', dark: '#E0A8A8' },
+            espresso: '#2C391B'
+          },
+          fontFamily: {
+            sans: ['Cairo', 'sans-serif'],
+            display: ['Cairo', 'sans-serif'],
+            script: ['Pacifico', 'cursive']
+          },
+          boxShadow: {
+            'boutique': '0 10px 25px -5px rgba(59, 78, 36, 0.15), 0 4px 10px -2px rgba(44, 57, 27, 0.08)',
+            'card': '4px 4px 0px #3B4E24',
+            'card-sage': '4px 4px 0px #C6D89E'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .bg-lindas-stripes {
+      background-color: #FAF6E8;
+      background-image: repeating-linear-gradient(90deg, #3B4E24 0px, #3B4E24 28px, #FAF6E8 28px, #FAF6E8 40px, #F2C4C4 40px, #F2C4C4 46px, #FAF6E8 46px, #FAF6E8 60px);
+    }
+    .bg-soft-stripes {
+      background-color: #FAF6E8;
+      background-image: repeating-linear-gradient(90deg, rgba(59, 78, 36, 0.04) 0px, rgba(59, 78, 36, 0.04) 28px, rgba(250, 246, 232, 0.9) 28px, rgba(250, 246, 232, 0.9) 40px, rgba(242, 196, 196, 0.15) 40px, rgba(242, 196, 196, 0.15) 46px, rgba(250, 246, 232, 0.9) 46px, rgba(250, 246, 232, 0.9) 60px);
+    }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #FAF6E8; }
+    ::-webkit-scrollbar-thumb { background: #C6D89E; border-radius: 9999px; border: 2px solid #FAF6E8; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-soft-stripes text-espresso font-sans antialiased selection:bg-sage selection:text-espresso min-h-screen flex flex-col">
+
+  <!-- Active Admin Mode Banner -->
+  <div id="adminActiveBanner" class="hidden bg-espresso text-cream border-b-2 border-sage py-2 px-4 relative z-40">
+    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#25D366] animate-pulse"></span>
+        <span class="font-extrabold text-sage" data-i18n="adminBannerTitle">وضع الإدارة مفعّل</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="openAdminDashboard()" class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-xl bg-sage hover:bg-sage-dark text-olive font-extrabold transition-colors shadow-xs">
+          <i class="fa-solid fa-sliders"></i> <span data-i18n="adminOpenPanelBtn">لوحة التعديل</span>
+        </button>
+        <button onclick="logoutAdmin()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-blush/90 hover:bg-blush text-olive font-bold transition-colors">
+          <i class="fa-solid fa-right-from-bracket"></i> <span data-i18n="adminLogoutBtn">خروج</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-olive text-cream text-xs sm:text-sm py-2 px-4 text-center border-b-2 border-olive-dark relative z-30">
+    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-2 sm:gap-4">
+      <span id="dynamicTopBarNotice" class="inline-flex items-center gap-1.5 font-medium">أسعار خاصة للأفراد والمجموعات في مملكة البحرين 🇧🇭 (من 1 إلى 12 شخص)</span>
+      <span class="hidden sm:inline text-cream/40">|</span>
+      <span class="inline-flex items-center gap-1.5 font-bold text-blush bg-cream/10 px-3 py-0.5 rounded-full border border-blush/30">
+        <i class="fa-solid fa-credit-card"></i> <span id="dynamicTopBarPayment">الدفع حصرياً عبر بنفت باي (BenefitPay)</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="sticky top-0 z-40 bg-cream/95 backdrop-blur-md border-b-2 border-olive shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden border-2 border-olive shadow-card-sage bg-olive flex-shrink-0 transition-transform group-hover:scale-105">
+          <svg class="w-full h-full bg-lindas-stripes p-1" viewBox="0 0 100 100">
+            <path d="M50 85 C20 65 10 45 10 30 C10 18 20 10 32 10 C40 10 46 15 50 22 C54 15 60 10 68 10 C80 10 90 18 90 30 C90 45 80 65 50 85 Z" fill="#FAF6E8" stroke="#3B4E24" stroke-width="4"/>
+            <text x="50" y="44" text-anchor="middle" font-family="Pacifico, cursive" font-size="14" fill="#3B4E24">Lindas</text>
+            <text x="50" y="62" text-anchor="middle" font-family="Pacifico, cursive" font-size="14" fill="#3B4E24">Palm</text>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <h1 class="font-display font-extrabold text-lg sm:text-xl text-olive leading-tight" data-i18n="brandTitle">لنداز بالم</h1>
+            <span class="text-xs bg-blush text-olive border border-olive px-2 py-0.5 rounded-full font-bold hidden xs:inline-block" data-i18n="brandCountry">البحرين 🇧🇭</span>
+          </div>
+          <p class="font-script text-xs sm:text-sm text-olive/80 tracking-wide" dir="ltr">Lindas Palm</p>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="handleAdminHeaderClick()" id="adminHeaderBtn" title="إدارة المتجر" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-cream hover:bg-blush/50 text-olive border-2 border-olive font-bold text-xs sm:text-sm transition-all shadow-xs">
+          <i id="adminHeaderIcon" class="fa-solid fa-lock text-olive"></i>
+          <span class="hidden md:inline" id="adminHeaderText" data-i18n="adminBtnLabel">الإدارة</span>
+        </button>
+
+        <button onclick="toggleLanguage()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-cream hover:bg-sage/50 text-olive border-2 border-olive font-extrabold text-xs sm:text-sm transition-all shadow-xs" id="langSwitchBtn">
+          <i class="fa-solid fa-globe"></i> <span id="langSwitchText">English</span>
+        </button>
+
+        <button onclick="toggleCart(true)" class="relative inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-olive hover:bg-olive-dark text-cream border-2 border-olive font-bold text-sm transition-all shadow-card active:translate-x-0.5 active:translate-y-0.5">
+          <i class="fa-solid fa-bag-shopping text-sage text-base"></i>
+          <span class="hidden sm:inline" data-i18n="cartButton">سلتك</span>
+          <span id="headerCartCount" class="bg-blush text-olive border border-olive text-xs font-extrabold px-2 py-0.5 rounded-full min-w-[24px] text-center">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative bg-lindas-stripes border-b-2 border-olive overflow-hidden py-8 sm:py-12 px-4">
+    <div class="max-w-5xl mx-auto relative z-10">
+      <div class="bg-cream/95 backdrop-blur-sm border-2 border-olive rounded-3xl p-6 sm:p-10 shadow-boutique relative overflow-hidden">
+        <div class="flex flex-col md:flex-row items-center gap-6 sm:gap-10">
+          <div class="relative flex-shrink-0">
+            <div class="w-40 h-52 sm:w-48 sm:h-64 rounded-3xl overflow-hidden border-[3px] border-olive shadow-card bg-olive p-2 rotate-[-2deg]">
+              <div class="w-full h-full rounded-2xl bg-lindas-stripes flex flex-col items-center justify-center p-3 text-center border border-olive/30">
+                <svg viewBox="0 0 100 100" class="w-28 h-28 drop-shadow-md">
+                  <path d="M50 85 C20 65 10 45 10 30 C10 18 20 10 32 10 C40 10 46 15 50 22 C54 15 60 10 68 10 C80 10 90 18 90 30 C90 45 80 65 50 85 Z" fill="#FAF6E8" stroke="#3B4E24" stroke-width="4"/>
+                  <text x="50" y="44" text-anchor="middle" font-family="Pacifico, cursive" font-size="15" fill="#3B4E24">Lindas</text>
+                  <text x="50" y="62" text-anchor="middle" font-family="Pacifico, cursive" font-size="15" fill="#3B4E24">Palm</text>
+                </svg>
+              </div>
+            </div>
+            <div class="absolute -bottom-3 -left-3 bg-blush border-2 border-olive rounded-2xl px-3.5 py-1.5 shadow-card rotate-[4deg]">
+              <span class="block text-[10px] font-bold text-olive" data-i18n="heroBadgeSub">الدفع الإلكتروني</span>
+              <span class="font-display font-extrabold text-xs text-olive">BenefitPay فقط</span>
+            </div>
+          </div>
+
+          <div class="text-start flex-1 space-y-4">
+            <div class="inline-flex items-center gap-2 bg-sage/60 border border-olive px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold text-olive">
+              <span>🌿</span> <span data-i18n="heroPill">ماتشا • V60 • هوت شوكو بالم (من 1 إلى 12 شخص)</span>
+            </div>
+            <h2 class="font-display font-extrabold text-2xl sm:text-4xl text-olive leading-snug">
+              <span data-i18n="heroTitlePrefix">موقع الطلب الرسمي لـ</span> <span class="underline decoration-blush decoration-4 underline-offset-4">لنداز بالم</span>
+            </h2>
+            <p class="text-espresso/85 text-sm sm:text-base leading-relaxed max-w-xl mx-auto md:mx-0" data-i18n="heroDesc">
+              اختر مقاسات الماتشا وقهوة V60 وهوت شوكو بالم من شخص واحد وحتى 12 شخصاً. الدفع متاح حصرياً عبر بنفت باي (BenefitPay) مع إرسال الطلب مباشرة إلى الواتساب!
+            </p>
+            <div class="pt-1">
+              <a href="#menu-section" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-olive hover:bg-olive-dark text-cream border-2 border-olive font-bold text-sm sm:text-base transition-all shadow-card">
+                <i class="fa-solid fa-mug-hot text-sage"></i> <span data-i18n="heroBtn">استعرض القائمة والأسعار</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Menu Section -->
+  <main id="menu-section" class="flex-1 max-w-6xl w-full mx-auto px-4 py-8 sm:py-12">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+      <div>
+        <div class="inline-flex items-center gap-1.5 text-olive font-bold text-sm mb-1"><span>✦</span> <span data-i18n="menuSubtitle">منيو الأفراد والمجموعات</span></div>
+        <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-espresso" data-i18n="menuMainTitle">اختر المشروب والمقاس المناسب (من 1 إلى 12 شخصاً)</h3>
+      </div>
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+        <button onclick="filterCategory('all')" data-cat="all" class="cat-tab active px-4 py-2.5 rounded-2xl border-2 border-olive font-bold text-sm whitespace-nowrap bg-olive text-cream shadow-card" data-i18n="catAll">الكل</button>
+        <button onclick="filterCategory('matcha')" data-cat="matcha" class="cat-tab px-4 py-2.5 rounded-2xl border-2 border-olive font-bold text-sm whitespace-nowrap bg-cream text-espresso hover:bg-sage/40" data-i18n="catMatcha">🍵 ماتشا</button>
+        <button onclick="filterCategory('v60')" data-cat="v60" class="cat-tab px-4 py-2.5 rounded-2xl border-2 border-olive font-bold text-sm whitespace-nowrap bg-cream text-espresso hover:bg-sage/40" data-i18n="catV60">☕ قهوة V60</button>
+        <button onclick="filterCategory('hotchoc')" data-cat="hotchoc" class="cat-tab px-4 py-2.5 rounded-2xl border-2 border-olive font-bold text-sm whitespace-nowrap bg-cream text-espresso hover:bg-sage/40" data-i18n="catHotChoc">🍫 هوت شوكو بالم</button>
+      </div>
+    </div>
+    <div id="menuContainer" class="space-y-12"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-cream border-t-2 border-olive py-8 px-4 mt-auto">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-start">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl overflow-hidden border-2 border-olive bg-olive flex items-center justify-center text-cream font-bold">LP</div>
+        <div>
+          <p class="font-display font-extrabold text-olive text-base" data-i18n="footerBrand">Lindas Palm | لنداز بالم</p>
+          <p class="text-xs text-espresso/70" data-i18n="footerSub">مملكة البحرين 🇧🇭 • الدفع حصرياً عبر بنفت باي (BenefitPay)</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a id="footerWhatsAppLink" href="https://wa.me/97338883635" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blush hover:bg-blush-dark text-olive border-2 border-olive text-xs sm:text-sm font-bold">
+          <i class="fa-brands fa-whatsapp text-base"></i> <span><span data-i18n="whatsappLabel">واتساب</span>: <span id="footerWhatsAppDisplay" dir="ltr">+973 3888 3635</span></span>
+        </a>
+        <button onclick="handleAdminHeaderClick()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-cream-warm hover:bg-sage/50 text-olive border-2 border-olive/60 text-xs font-bold">
+          <i class="fa-solid fa-user-shield"></i> <span data-i18n="footerAdminLink">إدارة الموقع</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Cart Bar -->
+  <div id="floatingCartBar" class="fixed bottom-4 left-4 right-4 z-40 max-w-lg mx-auto transition-all duration-300 translate-y-28 opacity-0 pointer-events-none">
+    <button onclick="toggleCart(true)" class="w-full bg-olive hover:bg-olive-dark text-cream border-2 border-olive rounded-2xl p-3.5 shadow-boutique flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <span id="floatingCount" class="bg-blush text-olive border border-olive font-extrabold text-sm w-8 h-8 rounded-xl flex items-center justify-center">0</span>
+        <div class="text-start">
+          <span class="block font-bold text-sm leading-tight" data-i18n="floatCartTitle">عرض سلة الطلبات</span>
+          <span class="text-xs text-sage" data-i18n="floatCartSub">الدفع عبر بنفت باي & إرسال للواتساب</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 bg-cream text-olive px-3.5 py-1.5 rounded-xl border border-olive font-extrabold text-sm">
+        <span id="floatingTotal">0.000 د.ب</span> <i class="fa-solid fa-arrow-left text-xs rtl:rotate-180"></i>
+      </div>
+    </button>
+  </div>
+
+  <!-- Customization Modal -->
+  <div id="customizeModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-espresso/60 backdrop-blur-xs">
+    <div class="bg-cream border-2 border-olive rounded-3xl max-w-md w-full overflow-hidden shadow-boutique">
+      <div class="bg-olive text-cream px-5 py-4 border-b-2 border-olive flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span id="modalItemEmoji" class="text-2xl">🍵</span>
+          <div><h4 id="modalItemName" class="font-display font-extrabold text-lg leading-tight">اسم المشروب</h4></div>
+        </div>
+        <button onclick="closeCustomizeModal()" class="w-8 h-8 rounded-xl bg-cream/15 hover:bg-blush hover:text-olive flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="p-5 space-y-4 max-h-[70vh] overflow-y-auto">
+        <p id="modalItemDesc" class="text-sm text-espresso/80 bg-cream-warm p-3 rounded-xl border border-olive/15">وصف المشروب</p>
+
+        <div class="space-y-2">
+          <label class="block text-sm font-bold text-olive" data-i18n="modalSizeLabel">اختر مقاس / عدد الأشخاص (من 1 إلى 12 شخص):</label>
+          <div id="modalSizeOptions" class="space-y-2 max-h-52 overflow-y-auto pr-1"></div>
+        </div>
+
+        <div id="milkOptionGroup" class="space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="block text-sm font-bold text-olive" data-i18n="modalMilkLabel">اختيار الحليب:</label>
+            <span id="allMilkOutBadge" class="hidden text-[11px] bg-red-600 text-white px-2.5 py-0.5 rounded-full font-extrabold">الحليب نفذت الكمية</span>
+          </div>
+          <div id="milkOptionsContainer" class="grid grid-cols-2 gap-2"></div>
+        </div>
+
+        <div id="tempOptionGroup" class="space-y-2">
+          <label class="block text-sm font-bold text-olive" data-i18n="modalTempLabel">درجة الحرارة:</label>
+          <div class="grid grid-cols-2 gap-2">
+            <label class="cursor-pointer">
+              <input type="radio" name="tempType" value="Iced" class="peer sr-only" checked>
+              <div id="tempIcedText" class="text-center py-2 px-2 rounded-xl border-2 border-olive/30 bg-white peer-checked:bg-sage peer-checked:border-olive font-bold text-xs">بارد (Iced)</div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="tempType" value="Hot" class="peer sr-only">
+              <div id="tempHotText" class="text-center py-2 px-2 rounded-xl border-2 border-olive/30 bg-white peer-checked:bg-sage peer-checked:border-olive font-bold text-xs">حار (Hot)</div>
+            </label>
+          </div>
+        </div>
+
+        <div id="sweetnessOptionGroup" class="space-y-2">
+          <label class="block text-sm font-bold text-olive" data-i18n="modalSweetLabel">درجة الحلاوة:</label>
+          <div class="grid grid-cols-3 gap-1.5">
+            <label class="cursor-pointer">
+              <input type="radio" name="sweetType" value="Normal Sweet" class="peer sr-only" checked>
+              <div id="sweetNormalText" class="text-center py-2 px-1 rounded-xl border-2 border-olive/30 bg-white peer-checked:bg-sage peer-checked:border-olive font-bold text-xs">معتدل</div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="sweetType" value="No Sugar" class="peer sr-only">
+              <div id="sweetNoneText" class="text-center py-2 px-1 rounded-xl border-2 border-olive/30 bg-white peer-checked:bg-sage peer-checked:border-olive font-bold text-xs">بدون سكر</div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="sweetType" value="Extra Sweet" class="peer sr-only">
+              <div id="sweetExtraText" class="text-center py-2 px-1 rounded-xl border-2 border-olive/30 bg-white peer-checked:bg-sage peer-checked:border-olive font-bold text-xs">زيادة</div>
+            </label>
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <label for="itemNoteInput" class="block text-sm font-bold text-olive" data-i18n="modalNotesLabel">ملاحظات إضافية (اختياري):</label>
+          <input type="text" id="itemNoteInput" data-i18n-placeholder="modalNotesPlaceholder" placeholder="مثال: ثلج أقل، بدون كريمة..." class="w-full px-3.5 py-2.5 rounded-xl bg-white border-2 border-olive/40 focus:border-olive focus:outline-none text-sm"/>
+        </div>
+
+        <div class="flex items-center justify-between pt-2 border-t border-olive/15">
+          <span class="font-bold text-sm text-olive" data-i18n="modalQtyLabel">الكمية:</span>
+          <div class="flex items-center gap-3 bg-white border-2 border-olive rounded-xl px-2 py-1">
+            <button type="button" onclick="adjustModalQty(-1)" class="w-8 h-8 rounded-lg bg-blush/60 hover:bg-blush font-extrabold text-olive flex items-center justify-center">-</button>
+            <span id="modalQtyDisplay" class="font-extrabold text-base w-6 text-center">1</span>
+            <button type="button" onclick="adjustModalQty(1)" class="w-8 h-8 rounded-lg bg-sage/80 hover:bg-sage font-extrabold text-olive flex items-center justify-center">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 bg-cream-warm border-t-2 border-olive">
+        <button onclick="confirmAddToCart()" class="w-full py-3 px-5 rounded-2xl bg-olive hover:bg-olive-dark text-cream border-2 border-olive font-extrabold text-base flex items-center justify-between shadow-card">
+          <span data-i18n="modalAddBtn">إضافة إلى السلة</span>
+          <span id="modalTotalPrice" class="bg-sage text-olive px-3 py-0.5 rounded-xl border border-olive text-sm">0.000 د.ب</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Drawer -->
+  <div id="cartDrawer" class="fixed inset-0 z-50 hidden">
+    <div onclick="toggleCart(false)" class="absolute inset-0 bg-espresso/60 backdrop-blur-xs"></div>
+    <div class="absolute top-0 bottom-0 left-0 right-0 sm:left-auto sm:right-0 w-full max-w-md bg-cream border-r-2 sm:border-r-0 sm:border-l-2 border-olive shadow-2xl flex flex-col z-10">
+      <div class="bg-olive text-cream px-5 py-4 border-b-2 border-olive flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-bag-shopping text-sage text-xl"></i>
+          <div><h3 class="font-display font-extrabold text-lg leading-tight" data-i18n="cartDrawerTitle">سلة طلباتك</h3></div>
+        </div>
+        <button onclick="toggleCart(false)" class="w-9 h-9 rounded-xl bg-cream/15 hover:bg-blush hover:text-olive flex items-center justify-center"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+
+      <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+
+      <div id="cartFooter" class="bg-cream-warm border-t-2 border-olive p-4 space-y-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div>
+            <label for="customerName" class="block text-xs font-bold text-olive mb-1" data-i18n="cartNameLabel">الاسم الكريم:</label>
+            <input type="text" id="customerName" data-i18n-placeholder="cartNamePlaceholder" placeholder="اكتب اسمك..." class="w-full px-3 py-2 rounded-xl bg-white border border-olive/40 text-xs sm:text-sm"/>
+          </div>
+          <div>
+            <label for="orderType" class="block text-xs font-bold text-olive mb-1" data-i18n="cartReceiveLabel">الاستلام:</label>
+            <select id="orderType" class="w-full px-3 py-2 rounded-xl bg-white border border-olive/40 text-xs sm:text-sm font-medium">
+              <option value="استلام من الموقع" data-i18n="receivePickup">استلام من الموقع</option>
+              <option value="توصيل" data-i18n="receiveDelivery">توصيل</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="bg-sage/40 border-2 border-olive rounded-2xl p-3 space-y-1.5">
+          <div class="flex items-center justify-between text-xs font-extrabold text-olive">
+            <span class="inline-flex items-center gap-1.5"><i class="fa-solid fa-credit-card"></i> <span data-i18n="cartPaymentLabel">طريقة الدفع المعتمدة:</span></span>
+            <span class="bg-blush text-olive px-2.5 py-0.5 rounded-full border border-olive" data-i18n="cartBenefitPayBadge">بنفت باي (BenefitPay)</span>
+          </div>
+          <div class="flex items-center justify-between text-base font-extrabold text-olive pt-1 border-t border-olive/20">
+            <span data-i18n="cartTotalLabel">المجموع الكلي:</span>
+            <span id="cartSummaryTotal" class="text-lg">0.000 د.ب</span>
+          </div>
+        </div>
+
+        <button onclick="sendOrderViaWhatsApp()" class="w-full py-3.5 px-5 rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-espresso border-2 border-olive font-extrabold text-base flex items-center justify-center gap-2.5 shadow-card">
+          <i class="fa-brands fa-whatsapp text-2xl"></i> <span data-i18n="cartWhatsAppBtn">إرسال الطلب عبر الواتساب</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASSWORD PROTECTED ADMIN LOGIN MODAL (NO VISIBLE HINT) -->
+  <div id="adminLoginModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-espresso/75 backdrop-blur-xs">
+    <div class="bg-cream border-2 border-olive rounded-3xl max-w-md w-full overflow-hidden shadow-boutique">
+      <div class="bg-olive text-cream px-5 py-4 border-b-2 border-olive flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-sage text-olive border border-olive flex items-center justify-center">
+            <i class="fa-solid fa-user-shield text-lg"></i>
+          </div>
+          <div>
+            <h4 class="font-display font-extrabold text-base sm:text-lg leading-tight">تسجيل دخول لوحة الإدارة</h4>
+          </div>
+        </div>
+        <button onclick="closeAdminLoginModal()" class="w-8 h-8 rounded-xl bg-cream/15 hover:bg-blush hover:text-olive flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="p-5 space-y-4">
+        <div id="adminLoginAlert" class="hidden p-3.5 rounded-2xl bg-red-50 border-2 border-red-500 text-red-800 text-xs sm:text-sm font-bold flex items-center gap-2">
+          <i class="fa-solid fa-triangle-exclamation text-red-600 text-base"></i>
+          <span>كلمة المرور غير صحيحة.</span>
+        </div>
+
+        <form onsubmit="handlePasswordAdminLogin(event)" class="space-y-4">
+          <div>
+            <label for="adminPasswordInput" class="block text-xs font-extrabold text-olive mb-1.5">كلمة المرور (PIN):</label>
+            <input 
+              type="password" 
+              id="adminPasswordInput" 
+              dir="ltr"
+              required
+              placeholder="••••••••"
+              class="w-full px-4 py-3 rounded-2xl bg-white border-2 border-olive/40 focus:border-olive focus:outline-none text-base font-mono tracking-wider text-center"
+            />
+          </div>
+          <button type="submit" class="w-full py-3.5 px-4 rounded-2xl bg-olive hover:bg-olive-dark text-cream border-2 border-olive font-extrabold text-sm shadow-card">
+            <i class="fa-solid fa-unlock-keyhole ml-1.5"></i> دخول إلى لوحة التحكم
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL ADMIN CONTROL PANEL MODAL -->
+  <div id="adminDashboardModal" class="fixed inset-0 z-50 hidden items-center justify-center p-2 sm:p-4 bg-espresso/75 backdrop-blur-xs">
+    <div class="bg-cream border-2 border-olive rounded-3xl max-w-4xl w-full h-[90vh] flex flex-col overflow-hidden shadow-boutique">
+      <div class="bg-olive text-cream px-5 py-4 border-b-2 border-olive flex items-center justify-between flex-shrink-0">
+        <div class="flex items-center gap-3">
+          <span class="w-10 h-10 rounded-xl bg-sage text-olive border border-olive flex items-center justify-center text-xl"><i class="fa-solid fa-sliders"></i></span>
+          <div>
+            <h3 class="font-display font-extrabold text-lg sm:text-xl leading-tight">لوحة تحكم Lindas Palm الشاملة</h3>
+            <p class="text-xs text-sage">تحكم كامل بالأسعار، الحليب، والمخزون</p>
+          </div>
+        </div>
+        <button onclick="closeAdminDashboard()" class="w-9 h-9 rounded-xl bg-cream/15 hover:bg-blush hover:text-olive flex items-center justify-center"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+
+      <!-- Dashboard Tabs -->
+      <div class="bg-cream-warm border-b-2 border-olive px-4 py-2.5 flex items-center gap-2 overflow-x-auto no-scrollbar flex-shrink-0">
+        <button onclick="switchAdminTab('products')" data-admintab="products" class="admin-nav-tab px-4 py-2 rounded-xl border-2 border-olive bg-olive text-cream font-bold text-xs sm:text-sm whitespace-nowrap">🍵 المنتجات والأسعار والمخزون</button>
+        <button onclick="switchAdminTab('milk')" data-admintab="milk" class="admin-nav-tab px-4 py-2 rounded-xl border-2 border-olive bg-cream text-olive hover:bg-sage/40 font-bold text-xs sm:text-sm whitespace-nowrap">🥛 أنواع وتوفر الحليب</button>
+        <button onclick="switchAdminTab('security')" data-admintab="security" class="admin-nav-tab px-4 py-2 rounded-xl border-2 border-olive bg-cream text-olive hover:bg-sage/40 font-bold text-xs sm:text-sm whitespace-nowrap">🔐 كلمة السر والأمان</button>
+        <button onclick="switchAdminTab('store')" data-admintab="store" class="admin-nav-tab px-4 py-2 rounded-xl border-2 border-olive bg-cream text-olive hover:bg-sage/40 font-bold text-xs sm:text-sm whitespace-nowrap">🏪 إعدادات المتجر والواتساب</button>
+      </div>
+
+      <!-- Tab Panels -->
+      <div class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
+        <!-- TAB 1: PRODUCTS -->
+        <div id="adminTab-products" class="admin-tab-panel space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-3 bg-sage/30 border-2 border-olive rounded-2xl p-4">
+            <div>
+              <h4 class="font-display font-extrabold text-base sm:text-lg text-olive">إدارة المشروبات والأسعار والمخزون</h4>
+              <p class="text-xs text-espresso/80">أضف منتجات جديدة، عدل الأسعار للمقاسات، وقم بتفعيل أو إيقاف (نفذت الكمية).</p>
+            </div>
+            <button onclick="openProductEditor(null)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-olive hover:bg-olive-dark text-cream font-extrabold text-xs sm:text-sm shadow-card">
+              <i class="fa-solid fa-plus"></i> <span>إضافة مشروب جديد</span>
+            </button>
+          </div>
+
+          <div id="productEditorFormBox" class="hidden bg-white border-2 border-olive rounded-3xl p-5 shadow-boutique space-y-4">
+            <div class="flex items-center justify-between border-b border-olive/20 pb-3">
+              <h5 id="productEditorHeading" class="font-display font-extrabold text-base text-olive">تعديل المشروب</h5>
+              <button type="button" onclick="closeProductEditor()" class="text-xs font-bold text-red-600 hover:underline">إلغاء ✕</button>
+            </div>
+            <input type="hidden" id="editProdId" />
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-olive mb-1">القسم:</label>
+                <select id="editProdCategory" class="w-full px-3 py-2 rounded-xl bg-cream/60 border border-olive/50 text-xs sm:text-sm font-bold">
+                  <option value="matcha">🍵 ماتشا</option>
+                  <option value="v60">☕ قهوة V60</option>
+                  <option value="hotchoc">🍫 هوت شوكو بالم</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-olive mb-1">الأيقونة (Emoji):</label>
+                <input type="text" id="editProdEmoji" placeholder="🍵" class="w-full px-3 py-2 rounded-xl bg-cream/60 border border-olive/50 text-sm text-center" />
+              </div>
+              <div class="flex flex-col justify-center gap-1.5 pt-2">
+                <label class="inline-flex items-center gap-2 text-xs font-extrabold text-red-700 cursor-pointer">
+                  <input type="checkbox" id="editProdOutOfStock" class="accent-red-600 w-4 h-4" /> <span>نفذت الكمية (Out of Stock)</span>
+                </label>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-olive mb-1">الاسم بالعربي:</label>
+                <input type="text" id="editProdNameAr" class="w-full px-3 py-2 rounded-xl bg-cream/60 border border-olive/50 text-xs sm:text-sm font-bold" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-olive mb-1">الاسم بالإنجليزي:</label>
+                <input type="text" id="editProdNameEn" class="w-full px-3 py-2 rounded-xl bg-cream/60 border border-olive/50 text-xs sm:text-sm font-bold" />
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-olive mb-1">الوصف بالعربي:</label>
+                <input type="text" id="editProdDescAr" class="w-full px-3 py-2 rounded-xl bg-cream/60 border border-olive/50 text-xs sm:text-sm" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-olive mb-1">الوصف بالإنجليزي:</label>
+                <input type="text" id="editProdDescEn" class="w-full px-3 py-2 rounded-xl bg-cream/60 border border-olive/50 text-xs sm:text-sm" />
+              </div>
+            </div>
+            <div class="bg-cream/60 p-3.5 rounded-2xl border border-olive/30 space-y-2.5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-extrabold text-olive">المقاسات والأسعار (بالدينار البحريني د.ب):</span>
+                <button type="button" onclick="addSizePriceRow('', '')" class="px-2.5 py-1 rounded-lg bg-sage text-olive border border-olive text-xs font-bold hover:bg-sage-dark">+ إضافة مقاس</button>
+              </div>
+              <div id="editProdSizesList" class="space-y-2"></div>
+            </div>
+            <div class="flex items-center justify-end gap-2 pt-2">
+              <button type="button" onclick="closeProductEditor()" class="px-4 py-2 rounded-xl bg-cream border border-olive text-olive font-bold text-xs sm:text-sm">إلغاء</button>
+              <button type="button" onclick="saveProductChanges()" class="px-5 py-2 rounded-xl bg-olive hover:bg-olive-dark text-cream font-extrabold text-xs sm:text-sm shadow-card">
+                <i class="fa-solid fa-floppy-disk ml-1"></i> حفظ المنتج وتحديث المتجر
+              </button>
+            </div>
+          </div>
+          <div id="adminProductsList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </div>
+
+        <!-- TAB 2: MILK -->
+        <div id="adminTab-milk" class="admin-tab-panel hidden space-y-4">
+          <div class="bg-white border-2 border-olive rounded-3xl p-5 space-y-4 shadow-card-sage">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h4 class="font-display font-extrabold text-lg text-olive flex items-center gap-2"><i class="fa-solid fa-mug-saucer"></i> <span>إدارة أنواع وتوفر الحليب</span></h4>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="setAllMilkStock(true)" class="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-extrabold">إيقاف الكل (نفذت الكمية)</button>
+                <button type="button" onclick="setAllMilkStock(false)" class="px-3 py-1.5 rounded-xl bg-sage hover:bg-sage-dark text-olive border border-olive text-xs font-extrabold">تفعيل الكل</button>
+              </div>
+            </div>
+            <div id="adminMilkOptionsList" class="space-y-3"></div>
+            <div class="pt-2 border-t border-olive/20 flex gap-2">
+              <input type="text" id="newMilkKeyInput" placeholder="اسم الحليب (مثل: Almond Milk)" class="flex-1 px-3.5 py-2.5 rounded-xl bg-cream/60 border border-olive/50 text-xs sm:text-sm font-bold" />
+              <button onclick="addNewMilkOption()" class="px-4 py-2.5 rounded-xl bg-olive text-cream font-extrabold text-xs sm:text-sm">+ إضافة حليب جديد</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: SECURITY -->
+        <div id="adminTab-security" class="admin-tab-panel hidden space-y-4">
+          <div class="bg-white border-2 border-olive rounded-3xl p-5 space-y-4 shadow-card-sage">
+            <h4 class="font-display font-extrabold text-lg text-olive flex items-center gap-2"><i class="fa-solid fa-lock"></i> <span>تغيير كلمة المرور الخاصة بلوحة التحكم</span></h4>
+            <div class="space-y-3 pt-2">
+              <div>
+                <label class="block text-xs font-extrabold text-olive mb-1">كلمة المرور الجديدة:</label>
+                <input type="password" id="adminNewPinInput" dir="ltr" placeholder="••••••••" class="w-full sm:w-64 px-3.5 py-2.5 rounded-xl bg-cream/60 border-2 border-olive/40 focus:border-olive text-sm font-mono font-bold tracking-wider" />
+              </div>
+            </div>
+            <button onclick="saveNewMasterPin()" class="px-6 py-2.5 rounded-2xl bg-olive hover:bg-olive-dark text-cream font-extrabold text-sm shadow-card">
+              <i class="fa-solid fa-check ml-1.5"></i> حفظ كلمة المرور الجديدة
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 4: STORE SETTINGS -->
+        <div id="adminTab-store" class="admin-tab-panel hidden space-y-4">
+          <div class="bg-white border-2 border-olive rounded-3xl p-5 space-y-4 shadow-card-sage">
+            <h4 class="font-display font-extrabold text-lg text-olive flex items-center gap-2"><i class="fa-solid fa-store"></i> <span>إعدادات المتجر والواتساب</span></h4>
+            <div>
+              <label class="block text-xs font-extrabold text-olive mb-1">رقم الواتساب لاستقبال الطلبات:</label>
+              <input type="text" id="adminWhatsAppInput" dir="ltr" placeholder="97338883635" class="w-full px-3.5 py-2.5 rounded-xl bg-cream/60 border-2 border-olive/40 focus:border-olive text-sm font-mono font-bold" />
+            </div>
+            <div>
+              <label class="block text-xs font-extrabold text-olive mb-1">نص الشريط العلوي (بالعربي):</label>
+              <input type="text" id="adminTopNoticeArInput" class="w-full px-3.5 py-2.5 rounded-xl bg-cream/60 border-2 border-olive/40 focus:border-olive text-sm" />
+            </div>
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+              <button onclick="saveStoreSettings()" class="px-6 py-2.5 rounded-2xl bg-olive hover:bg-olive-dark text-cream font-extrabold text-sm shadow-card">
+                <i class="fa-solid fa-floppy-disk ml-1.5"></i> حفظ إعدادات المتجر
+              </button>
+              <button onclick="resetStoreToDefaults()" class="px-4 py-2 rounded-xl bg-blush/60 hover:bg-blush text-olive border border-olive text-xs font-bold">استعادة البيانات الأصلية</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-olive text-cream border-2 border-sage px-5 py-3 rounded-2xl shadow-boutique flex items-center gap-2.5 text-sm font-bold transition-all duration-300 opacity-0 -translate-y-4 pointer-events-none">
+    <i class="fa-solid fa-circle-check text-sage text-base"></i> <span id="toastMessage">تمت العملية بنجاح</span>
+  </div>
+
+  <!-- Store Logic -->
+  <script>
+    const DEFAULT_MASTER_PIN = 'rabi20023';
+    const STORAGE_KEY = 'lindas_palm_full_store_data_v6';
+    const ADMIN_SESSION_KEY = 'lindas_palm_is_admin_logged';
+
+    function buildGroupPrices(perPersonPrice) {
+      const labels = [
+        'لشخص واحد (For 1 Person)',
+        'لشخصين (For 2 Persons)',
+        'لـ 3 أشخاص (For 3 Persons)',
+        'لـ 4 أشخاص (For 4 Persons)',
+        'لـ 5 أشخاص (For 5 Persons)',
+        'لـ 6 أشخاص (For 6 Persons)',
+        'لـ 7 أشخاص (For 7 Persons)',
+        'لـ 8 أشخاص (For 8 Persons)',
+        'لـ 9 أشخاص (For 9 Persons)',
+        'لـ 10 أشخاص (For 10 Persons)',
+        'لـ 11 شخص (For 11 Persons)',
+        'لـ 12 شخص (For 12 Persons)'
+      ];
+      const prices = {};
+      labels.forEach((lbl, idx) => {
+        prices[lbl] = Number(((idx + 1) * perPersonPrice).toFixed(3));
+      });
+      return prices;
+    }
+
+    const DEFAULT_STORE_DATA = {
+      masterPin: DEFAULT_MASTER_PIN,
+      whatsapp: '97338883635',
+      topNoticeAr: 'أسعار خاصة للأفراد والمجموعات في مملكة البحرين 🇧🇭 (من 1 إلى 12 شخص)',
+      topNoticeEn: 'Special pricing for individuals & groups in Bahrain 🇧🇭 (1 to 12 persons)',
+      paymentNoticeAr: 'الدفع حصرياً عبر بنفت باي (BenefitPay)',
+      paymentNoticeEn: 'Payment exclusively via BenefitPay',
+      milkOptions: [
+        { key: 'Whole Milk', labelAr: 'كامل الدسم', labelEn: 'Whole Milk', outOfStock: true },
+        { key: 'Oat Milk', labelAr: 'حليب شوفان', labelEn: 'Oat Milk', outOfStock: true },
+        { key: 'Coconut Milk', labelAr: 'حليب جوز الهند', labelEn: 'Coconut Milk', outOfStock: true }
+      ],
+      menuItems: [
+        {
+          id: 'salted-vanilla-matcha',
+          category: 'matcha',
+          nameAr: 'سولتيد فانيليا ماتشا',
+          nameEn: 'Salted Vanilla Matcha',
+          descAr: 'ماتشا فاخرة مع لمسة فانيليا مالحة منعشة (متوفرة من 1 إلى 12 شخص).',
+          descEn: 'Luxury matcha with a refreshing salted vanilla twist (1 to 12 persons).',
+          emoji: '🌿',
+          outOfStock: false,
+          hasMilk: true,
+          prices: buildGroupPrices(2.350)
+        },
+        {
+          id: 'birthday-cake-matcha',
+          category: 'matcha',
+          nameAr: 'بيرثداي كيك ماتشا',
+          nameEn: 'Birthday Cake Matcha',
+          descAr: 'ماتشا بنكهة كعكة عيد الميلاد المميزة واللذيذة (متوفرة من 1 إلى 12 شخص).',
+          descEn: 'Matcha flavored with delicious celebration birthday cake notes (1 to 12 persons).',
+          emoji: '🎂',
+          outOfStock: false,
+          hasMilk: true,
+          prices: buildGroupPrices(2.450)
+        },
+        {
+          id: 'coconut-matcha',
+          category: 'matcha',
+          nameAr: 'جوز الهند ماتشا',
+          nameEn: 'Coconut Matcha',
+          descAr: 'ماتشا منعشة بقاعدة صافية بدون إضافات حليب (متوفرة من 1 إلى 12 شخص).',
+          descEn: 'Refreshing pure coconut matcha base with no milk options (1 to 12 persons).',
+          emoji: '🥥',
+          outOfStock: false,
+          hasMilk: false,
+          prices: buildGroupPrices(2.350)
+        },
+        {
+          id: 'classic-matcha',
+          category: 'matcha',
+          nameAr: 'كلاسيك ماتشا',
+          nameEn: 'Classic Matcha',
+          descAr: 'الماتشا الكلاسيكية الأصلية الفاخرة (متوفرة من 1 إلى 12 شخص).',
+          descEn: 'Original luxury classic matcha (1 to 12 persons).',
+          emoji: '🍵',
+          outOfStock: false,
+          hasMilk: true,
+          prices: buildGroupPrices(2.150)
+        },
+        {
+          id: 'v60-ethiopian',
+          category: 'v60',
+          nameAr: 'V60 إثيوبيا',
+          nameEn: 'V60 Ethiopian',
+          descAr: 'قهوة مختصة إثيوبية مقطرة يدوياً للأفراد والتجمعات (متوفرة من 1 إلى 12 شخص).',
+          descEn: 'Hand-poured specialty Ethiopian drip coffee (Available for 1 to 12 persons).',
+          emoji: '🌸',
+          outOfStock: false,
+          hasMilk: false,
+          prices: buildGroupPrices(1.800)
+        },
+        {
+          id: 'v60-colombian',
+          category: 'v60',
+          nameAr: 'V60 كولومبيا',
+          nameEn: 'V60 Colombian',
+          descAr: 'قهوة مختصة كولومبية مقطرة يدوياً للأفراد والتجمعات (متوفرة من 1 إلى 12 شخص).',
+          descEn: 'Hand-poured specialty Colombian drip coffee (Available for 1 to 12 persons).',
+          emoji: '☕',
+          outOfStock: false,
+          hasMilk: false,
+          prices: buildGroupPrices(1.800)
+        },
+        {
+          id: 'v60-brazilian',
+          category: 'v60',
+          nameAr: 'V60 برازيلية',
+          nameEn: 'V60 Brazilian',
+          descAr: 'قهوة مختصة برازيلية مقطرة يدوياً للأفراد والتجمعات (متوفرة من 1 إلى 12 شخص).',
+          descEn: 'Hand-poured specialty Brazilian drip coffee (Available for 1 to 12 persons).',
+          emoji: '🧊',
+          outOfStock: false,
+          hasMilk: false,
+          prices: buildGroupPrices(1.800)
+        },
+        {
+          id: 'hotchoc-palm',
+          category: 'hotchoc',
+          nameAr: 'هوت شوكو بالم',
+          nameEn: 'Hot Choco Palm',
+          descAr: 'شوكولاتة بلجيكية ساخنة وغنية للأفراد والتجمعات (متوفرة من 1 إلى 12 شخص).',
+          descEn: 'Rich and warm Belgian hot chocolate for individuals and groups (1 to 12 persons).',
+          emoji: '🍫',
+          outOfStock: false,
+          hasMilk: true,
+          prices: buildGroupPrices(1.500)
+        }
+      ]
+    };
+
+    let storeData = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA));
+    let isAdminLoggedIn = false;
+    let currentLang = 'ar';
+    let currentFilter = 'all';
+    let cart = [];
+    let selectedItem = null;
+    let selectedSizeKey = '';
+    let modalQty = 1;
+
+    function loadStoreData() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          storeData = { ...DEFAULT_STORE_DATA, ...parsed };
+        }
+      } catch (e) {}
+    }
+
+    function saveStoreData() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(storeData));
+      } catch (e) {}
+      refreshEntireUI();
+    }
+
+    function checkAdminSession() {
+      try {
+        isAdminLoggedIn = sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true';
+      } catch (e) {
+        isAdminLoggedIn = false;
+      }
+      updateAdminUIState();
+    }
+
+    function updateAdminUIState() {
+      const banner = document.getElementById('adminActiveBanner');
+      const headerBtn = document.getElementById('adminHeaderBtn');
+      const headerIcon = document.getElementById('adminHeaderIcon');
+      const headerText = document.getElementById('adminHeaderText');
+
+      if (isAdminLoggedIn) {
+        banner.classList.remove('hidden');
+        headerBtn.className = 'inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-sage text-olive border-2 border-olive font-extrabold text-xs sm:text-sm transition-all shadow-xs';
+        headerIcon.className = 'fa-solid fa-sliders text-olive';
+        headerText.textContent = currentLang === 'ar' ? 'لوحة التعديل' : 'Edit Store';
+      } else {
+        banner.classList.add('hidden');
+        headerBtn.className = 'inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-cream hover:bg-blush/50 text-olive border-2 border-olive font-bold text-xs sm:text-sm transition-all shadow-xs';
+        headerIcon.className = 'fa-solid fa-lock text-olive';
+        headerText.textContent = currentLang === 'ar' ? 'الإدارة' : 'Admin';
+      }
+    }
+
+    window.handleAdminHeaderClick = function() {
+      if (isAdminLoggedIn) {
+        openAdminDashboard();
+      } else {
+        openAdminLoginModal();
+      }
+    };
+
+    window.openAdminLoginModal = function() {
+      document.getElementById('adminLoginAlert').classList.add('hidden');
+      document.getElementById('adminPasswordInput').value = '';
+      const modal = document.getElementById('adminLoginModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    };
+
+    window.closeAdminLoginModal = function() {
+      const modal = document.getElementById('adminLoginModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    };
+
+    window.handlePasswordAdminLogin = function(e) {
+      e.preventDefault();
+      const pwd = document.getElementById('adminPasswordInput').value.trim();
+      const correctPin = storeData.masterPin || DEFAULT_MASTER_PIN;
+
+      if (pwd === correctPin) {
+        isAdminLoggedIn = true;
+        try { sessionStorage.setItem(ADMIN_SESSION_KEY, 'true'); } catch (err) {}
+        closeAdminLoginModal();
+        updateAdminUIState();
+        openAdminDashboard();
+        showToast('تم تسجيل الدخول بنجاح إلى لوحة الإدارة! 🔓');
+      } else {
+        document.getElementById('adminLoginAlert').classList.remove('hidden');
+      }
+    };
+
+    window.logoutAdmin = function() {
+      isAdminLoggedIn = false;
+      try { sessionStorage.removeItem(ADMIN_SESSION_KEY); } catch (e) {}
+      updateAdminUIState();
+      closeAdminDashboard();
+      showToast('تم تسجيل الخروج من وضع الإدارة');
+    };
+
+    window.openAdminDashboard = function() {
+      if (!isAdminLoggedIn) {
+        openAdminLoginModal();
+        return;
+      }
+      populateAdminDashboardFields();
+      switchAdminTab('products');
+      const modal = document.getElementById('adminDashboardModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    };
+
+    window.closeAdminDashboard = function() {
+      const modal = document.getElementById('adminDashboardModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    };
+
+    window.switchAdminTab = function(tabName) {
+      document.querySelectorAll('.admin-tab-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`adminTab-${tabName}`).classList.remove('hidden');
+
+      document.querySelectorAll('.admin-nav-tab').forEach(btn => {
+        if (btn.dataset.admintab === tabName) {
+          btn.className = 'admin-nav-tab px-4 py-2 rounded-xl border-2 border-olive bg-olive text-cream font-bold text-xs sm:text-sm whitespace-nowrap';
+        } else {
+          btn.className = 'admin-nav-tab px-4 py-2 rounded-xl border-2 border-olive bg-cream text-olive hover:bg-sage/40 font-bold text-xs sm:text-sm whitespace-nowrap';
+        }
+      });
+    };
+
+    function populateAdminDashboardFields() {
+      document.getElementById('adminNewPinInput').value = '';
+      document.getElementById('adminWhatsAppInput').value = storeData.whatsapp || '97338883635';
+      document.getElementById('adminTopNoticeArInput').value = storeData.topNoticeAr || '';
+
+      renderAdminProductsList();
+      renderAdminMilkList();
+    }
+
+    function renderAdminProductsList() {
+      const listEl = document.getElementById('adminProductsList');
+      listEl.innerHTML = storeData.menuItems.map(item => {
+        const sizesCount = Object.keys(item.prices || {}).length;
+        const firstPrice = Object.values(item.prices || {})[0] || 0;
+        const isOut = !!item.outOfStock;
+        return `
+          <div class="bg-white border-2 ${isOut ? 'border-red-400 bg-red-50/30' : 'border-olive'} rounded-2xl p-4 flex flex-col justify-between gap-3 shadow-xs">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <span class="text-2xl w-11 h-11 rounded-xl bg-cream border border-olive flex items-center justify-center ${isOut ? 'grayscale opacity-65' : ''}">${item.emoji}</span>
+                <div>
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <h5 class="font-display font-extrabold text-sm sm:text-base text-olive">${item.nameAr}</h5>
+                    ${isOut ? '<span class="text-[10px] bg-red-600 text-white px-2 py-0.5 rounded-full font-extrabold">نفذت الكمية</span>' : ''}
+                  </div>
+                  <p class="text-xs text-espresso/70 font-semibold" dir="ltr">${item.nameEn}</p>
+                </div>
+              </div>
+              <span class="text-[11px] bg-sage/50 border border-olive px-2 py-0.5 rounded-full font-bold text-olive whitespace-nowrap">
+                ${sizesCount} مقاسات • يبدأ ${Number(firstPrice).toFixed(3)} د.ب
+              </span>
+            </div>
+            <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-olive/15">
+              <button type="button" onclick="toggleProductStock('${item.id}')" class="px-3 py-1.5 rounded-xl border font-extrabold text-xs flex items-center gap-1.5 transition-colors ${isOut ? 'bg-red-600 hover:bg-red-700 text-white border-red-800' : 'bg-[#25D366]/25 hover:bg-[#25D366]/40 text-olive border-olive'}">
+                <i class="fa-solid ${isOut ? 'fa-ban' : 'fa-circle-check'}"></i>
+                <span>${isOut ? 'نفذت الكمية (تفعيل التوفر)' : 'متوفر (تعيين نفذت الكمية)'}</span>
+              </button>
+
+              <div class="flex items-center gap-1.5">
+                <button onclick="openProductEditor('${item.id}')" class="px-3 py-1.5 rounded-xl bg-sage hover:bg-sage-dark text-olive border border-olive font-bold text-xs flex items-center gap-1">
+                  <i class="fa-solid fa-pen-to-square"></i> <span>تعديل</span>
+                </button>
+                <button onclick="deleteMenuItem('${item.id}')" class="px-2.5 py-1.5 rounded-xl bg-blush/70 hover:bg-blush text-red-900 border border-olive font-bold text-xs flex items-center gap-1">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.toggleProductStock = function(prodId) {
+      const idx = storeData.menuItems.findIndex(i => i.id === prodId);
+      if (idx === -1) return;
+      storeData.menuItems[idx].outOfStock = !storeData.menuItems[idx].outOfStock;
+      saveStoreData();
+      renderAdminProductsList();
+    };
+
+    window.openProductEditor = function(prodId) {
+      const box = document.getElementById('productEditorFormBox');
+      box.classList.remove('hidden');
+      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      const sizesList = document.getElementById('editProdSizesList');
+      sizesList.innerHTML = '';
+
+      if (prodId) {
+        const item = storeData.menuItems.find(i => i.id === prodId);
+        if (!item) return;
+        document.getElementById('productEditorHeading').textContent = `تعديل: ${item.nameAr}`;
+        document.getElementById('editProdId').value = item.id;
+        document.getElementById('editProdCategory').value = item.category;
+        document.getElementById('editProdEmoji').value = item.emoji;
+        document.getElementById('editProdNameAr').value = item.nameAr;
+        document.getElementById('editProdNameEn').value = item.nameEn;
+        document.getElementById('editProdDescAr').value = item.descAr;
+        document.getElementById('editProdDescEn').value = item.descEn;
+        document.getElementById('editProdOutOfStock').checked = !!item.outOfStock;
+
+        Object.entries(item.prices || {}).forEach(([label, price]) => {
+          addSizePriceRow(label, price);
+        });
+      } else {
+        document.getElementById('productEditorHeading').textContent = 'إضافة مشروب جديد';
+        document.getElementById('editProdId').value = '';
+        document.getElementById('editProdCategory').value = 'matcha';
+        document.getElementById('editProdEmoji').value = '🍵';
+        document.getElementById('editProdNameAr').value = '';
+        document.getElementById('editProdNameEn').value = '';
+        document.getElementById('editProdDescAr').value = '';
+        document.getElementById('editProdDescEn').value = '';
+        document.getElementById('editProdOutOfStock').checked = false;
+
+        addSizePriceRow('لشخص واحد (For 1 Person)', '2.250');
+        addSizePriceRow('لشخصين (For 2 Persons)', '4.500');
+      }
+    };
+
+    window.closeProductEditor = function() {
+      document.getElementById('productEditorFormBox').classList.add('hidden');
+    };
+
+    window.addSizePriceRow = function(label = '', price = '') {
+      const container = document.getElementById('editProdSizesList');
+      const row = document.createElement('div');
+      row.className = 'size-price-row flex items-center gap-2';
+      row.innerHTML = `
+        <input type="text" placeholder="المقاس (مثال: لشخص واحد For 1 Person)" value="${label}" class="size-label-input flex-1 px-3 py-1.5 rounded-xl bg-white border border-olive/40 text-xs font-bold" />
+        <input type="number" step="0.050" placeholder="السعر د.ب" value="${price}" dir="ltr" class="size-price-input w-28 px-3 py-1.5 rounded-xl bg-white border border-olive/40 text-xs font-mono font-bold" />
+        <button type="button" onclick="this.parentElement.remove()" class="w-8 h-8 rounded-xl bg-blush/80 hover:bg-blush text-red-800 font-bold text-xs flex items-center justify-center">✕</button>
+      `;
+      container.appendChild(row);
+    };
+
+    window.saveProductChanges = function() {
+      const id = document.getElementById('editProdId').value.trim() || ('item-' + Date.now());
+      const category = document.getElementById('editProdCategory').value;
+      const emoji = document.getElementById('editProdEmoji').value.trim() || '🍵';
+      const nameAr = document.getElementById('editProdNameAr').value.trim();
+      const nameEn = document.getElementById('editProdNameEn').value.trim() || nameAr;
+      const descAr = document.getElementById('editProdDescAr').value.trim();
+      const descEn = document.getElementById('editProdDescEn').value.trim() || descAr;
+      const outOfStock = document.getElementById('editProdOutOfStock').checked;
+
+      if (!nameAr) {
+        showToast('يرجى كتابة اسم المشروب بالعربي أولاً');
+        return;
+      }
+
+      const prices = {};
+      document.querySelectorAll('.size-price-row').forEach(row => {
+        const lbl = row.querySelector('.size-label-input').value.trim();
+        const prc = parseFloat(row.querySelector('.size-price-input').value);
+        if (lbl && !isNaN(prc) && prc >= 0) {
+          prices[lbl] = prc;
+        }
+      });
+
+      if (Object.keys(prices).length === 0) {
+        showToast('يرجى إضافة مقاس واحد وسعر صحيح على الأقل');
+        return;
+      }
+
+      const updatedItem = {
+        id, category, nameAr, nameEn, descAr, descEn, emoji, outOfStock,
+        hasMilk: category !== 'v60',
+        prices
+      };
+
+      const existingIdx = storeData.menuItems.findIndex(i => i.id === id);
+      if (existingIdx !== -1) {
+        storeData.menuItems[existingIdx] = updatedItem;
+      } else {
+        storeData.menuItems.push(updatedItem);
+      }
+
+      saveStoreData();
+      closeProductEditor();
+      renderAdminProductsList();
+      showToast('تم حفظ المنتج وتحديث المتجر بنجاح! ✅');
+    };
+
+    window.deleteMenuItem = function(prodId) {
+      if (storeData.menuItems.length <= 1) {
+        showToast('يجب أن يحتوي المنيو على مشروب واحد على الأقل');
+        return;
+      }
+      storeData.menuItems = storeData.menuItems.filter(i => i.id !== prodId);
+      saveStoreData();
+      renderAdminProductsList();
+      showToast('تم حذف المشروب من القائمة');
+    };
+
+    function renderAdminMilkList() {
+      const container = document.getElementById('adminMilkOptionsList');
+      container.innerHTML = (storeData.milkOptions || []).map((milk, idx) => {
+        const isOut = !!milk.outOfStock;
+        return `
+          <div class="flex flex-wrap items-center gap-2 ${isOut ? 'bg-red-50/60 border-red-400' : 'bg-cream/60 border-olive/30'} p-2.5 rounded-xl border">
+            <input type="text" value="${milk.key}" onchange="updateMilkOption(${idx}, 'key', this.value)" placeholder="Key" class="w-24 sm:w-28 px-2.5 py-1.5 rounded-lg bg-white border border-olive/30 text-xs font-mono font-bold" />
+            <input type="text" value="${milk.labelAr}" onchange="updateMilkOption(${idx}, 'labelAr', this.value)" placeholder="الاسم بالعربي" class="flex-1 min-w-[110px] px-2.5 py-1.5 rounded-lg bg-white border border-olive/30 text-xs font-bold" />
+            <input type="text" value="${milk.labelEn}" onchange="updateMilkOption(${idx}, 'labelEn', this.value)" placeholder="English Name" class="flex-1 min-w-[110px] px-2.5 py-1.5 rounded-lg bg-white border border-olive/30 text-xs font-semibold" />
+            <button type="button" onclick="toggleMilkStock(${idx})" class="px-3 py-1.5 rounded-lg border text-xs font-extrabold flex items-center gap-1 whitespace-nowrap ${isOut ? 'bg-red-600 text-white border-red-800' : 'bg-[#25D366]/25 text-olive border-olive'}">
+              <i class="fa-solid ${isOut ? 'fa-ban' : 'fa-circle-check'}"></i>
+              <span>${isOut ? 'نفذت الكمية (تفعيل)' : 'متوفر (إيقاف)'}</span>
+            </button>
+            <button onclick="removeMilkOption(${idx})" class="w-8 h-8 rounded-lg bg-blush text-red-900 font-bold text-xs flex items-center justify-center">✕</button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.toggleMilkStock = function(idx) {
+      if (!storeData.milkOptions[idx]) return;
+      storeData.milkOptions[idx].outOfStock = !storeData.milkOptions[idx].outOfStock;
+      saveStoreData();
+      renderAdminMilkList();
+      showToast(storeData.milkOptions[idx].outOfStock ? 'تم تعيين نوع الحليب: نفذت الكمية' : 'تم تفعيل توفر نوع الحليب');
+    };
+
+    window.setAllMilkStock = function(isOutOfStock) {
+      (storeData.milkOptions || []).forEach(m => {
+        m.outOfStock = isOutOfStock;
+      });
+      saveStoreData();
+      renderAdminMilkList();
+      showToast(isOutOfStock ? 'تم إيقاف جميع أنواع الحليب (نفذت الكمية)' : 'تم تفعيل جميع أنواع الحليب');
+    };
+
+    window.updateMilkOption = function(idx, field, val) {
+      if (storeData.milkOptions[idx]) {
+        storeData.milkOptions[idx][field] = val.trim();
+        saveStoreData();
+      }
+    };
+
+    window.addNewMilkOption = function() {
+      const input = document.getElementById('newMilkKeyInput');
+      const val = input.value.trim();
+      if (!val) return;
+      storeData.milkOptions.push({ key: val, labelAr: val, labelEn: val, outOfStock: false });
+      input.value = '';
+      saveStoreData();
+      renderAdminMilkList();
+      showToast('تمت إضافة خيار الحليب بنجاح');
+    };
+
+    window.removeMilkOption = function(idx) {
+      storeData.milkOptions.splice(idx, 1);
+      saveStoreData();
+      renderAdminMilkList();
+      showToast('تمت إزالة خيار الحليب');
+    };
+
+    window.saveNewMasterPin = function() {
+      const newPin = document.getElementById('adminNewPinInput').value.trim();
+      if (!newPin) {
+        showToast('يرجى كتابة كلمة المرور الجديدة أولاً');
+        return;
+      }
+      storeData.masterPin = newPin;
+      saveStoreData();
+      showToast('تم تغيير كلمة سر لوحة التحكم بنجاح! 🔐');
+    };
+
+    window.saveStoreSettings = function() {
+      const wa = document.getElementById('adminWhatsAppInput').value.replace(/[^0-9]/g, '') || '97338883635';
+      const topAr = document.getElementById('adminTopNoticeArInput').value.trim();
+
+      storeData.whatsapp = wa;
+      if (topAr) storeData.topNoticeAr = topAr;
+
+      saveStoreData();
+      showToast('تم حفظ إعدادات المتجر بنجاح! 🏪');
+    };
+
+    window.resetStoreToDefaults = function() {
+      storeData = JSON.parse(JSON.stringify(DEFAULT_STORE_DATA));
+      saveStoreData();
+      populateAdminDashboardFields();
+      showToast('تمت استعادة البيانات الافتراضية الأصلية');
+    };
+
+    const translations = {
+      ar: {
+        adminBannerTitle: 'وضع الإدارة مفعّل',
+        adminOpenPanelBtn: 'لوحة التعديل',
+        adminLogoutBtn: 'خروج',
+        adminBtnLabel: 'الإدارة',
+        footerAdminLink: 'إدارة المتجر',
+        brandTitle: 'لنداز بالم',
+        brandCountry: 'البحرين 🇧🇭',
+        cartButton: 'سلتك',
+        heroBadgeSub: 'الدفع الإلكتروني',
+        heroPill: 'ماتشا • V60 • هوت شوكو بالم (من 1 إلى 12 شخص)',
+        heroTitlePrefix: 'موقع الطلب الرسمي لـ',
+        heroDesc: 'اختر مقاسات الماتشا وقهوة V60 وهوت شوكو بالم من شخص واحد وحتى 12 شخصاً. الدفع متاح حصرياً عبر بنفت باي (BenefitPay) مع إرسال الطلب مباشرة إلى الواتساب!',
+        heroBtn: 'استعرض القائمة والأسعار',
+        menuSubtitle: 'منيو الأفراد والمجموعات',
+        menuMainTitle: 'اختر المشروب والمقاس المناسب (من 1 إلى 12 شخصاً)',
+        catAll: 'الكل',
+        catMatcha: '🍵 ماتشا',
+        catV60: '☕ قهوة V60',
+        catHotChoc: '🍫 هوت شوكو بالم',
+        footerBrand: 'Lindas Palm | لنداز بالم',
+        footerSub: 'مملكة البحرين 🇧🇭 • الدفع حصرياً عبر بنفت باي (BenefitPay)',
+        whatsappLabel: 'واتساب',
+        floatCartTitle: 'عرض سلة الطلبات',
+        floatCartSub: 'الدفع عبر بنفت باي & إرسال للواتساب',
+        modalSizeLabel: 'اختر مقاس / عدد الأشخاص (من 1 إلى 12 شخص):',
+        modalMilkLabel: 'اختيار الحليب:',
+        modalTempLabel: 'درجة الحرارة:',
+        modalSweetLabel: 'درجة الحلاوة:',
+        modalNotesLabel: 'ملاحظات إضافية (اختياري):',
+        modalNotesPlaceholder: 'مثال: ثلج أقل، بدون كريمة...',
+        modalQtyLabel: 'الكمية:',
+        modalAddBtn: 'إضافة إلى السلة',
+        cartDrawerTitle: 'سلة طلباتك',
+        cartDrawerSub: 'الدفع عبر بنفت باي + طلب واتساب',
+        cartNameLabel: 'الاسم الكريم:',
+        cartNamePlaceholder: 'اكتب اسمك...',
+        cartReceiveLabel: 'الاستلام:',
+        receivePickup: 'استلام من الموقع',
+        receiveDelivery: 'توصيل',
+        cartPaymentLabel: 'طريقة الدفع المعتمدة:',
+        cartBenefitPayBadge: 'بنفت باي (BenefitPay)',
+        cartTotalLabel: 'المجموع الكلي:',
+        cartWhatsAppBtn: 'إرسال الطلب عبر الواتساب',
+        itemStartsFrom: 'يبدأ من',
+        btnSelectSize: 'اختر الحجم والطلب',
+        outOfStockBadge: 'نفذت الكمية',
+        outOfStockBtn: 'نفذت الكمية حالياً',
+        cartEmptyTitle: 'سلتك فارغة حالياً',
+        cartEmptySub: 'اختر مشروباتك المفضلة من القائمة.',
+        qtyLabel: 'الكمية:',
+        groupBadge: '1 إلى 12 شخص'
+      },
+      en: {
+        adminBannerTitle: 'Admin Mode Active',
+        adminOpenPanelBtn: 'Edit Store',
+        adminLogoutBtn: 'Logout',
+        adminBtnLabel: 'Admin',
+        footerAdminLink: 'Store Admin',
+        brandTitle: 'Lindas Palm',
+        brandCountry: 'Bahrain 🇧🇭',
+        cartButton: 'Cart',
+        heroBadgeSub: 'Online Payment',
+        heroPill: 'Matcha • V60 • Hot Choco Palm (1 to 12 persons)',
+        heroTitlePrefix: 'Official Ordering Site for',
+        heroDesc: 'Choose matcha, V60 coffee, and Hot Choco Palm sizes for 1 up to 12 persons. Payment available exclusively via BenefitPay with direct WhatsApp order dispatch!',
+        heroBtn: 'Browse Menu & Prices',
+        menuSubtitle: 'Individual & Group Menu',
+        menuMainTitle: 'Select your drinks and sizes (1 to 12 persons)',
+        catAll: 'All',
+        catMatcha: '🍵 Matcha',
+        catV60: '☕ V60 Coffee',
+        catHotChoc: '🍫 Hot Choco Palm',
+        footerBrand: 'Lindas Palm',
+        footerSub: 'Kingdom of Bahrain 🇧🇭 • Payment exclusively via BenefitPay',
+        whatsappLabel: 'WhatsApp',
+        floatCartTitle: 'View Shopping Cart',
+        floatCartSub: 'Pay via BenefitPay & Send to WhatsApp',
+        modalSizeLabel: 'Select Size / Number of Persons (1 to 12):',
+        modalMilkLabel: 'Select Milk:',
+        modalTempLabel: 'Temperature:',
+        modalSweetLabel: 'Sweetness Level:',
+        modalNotesLabel: 'Additional Notes (Optional):',
+        modalNotesPlaceholder: 'e.g., less ice, no whipped cream...',
+        modalQtyLabel: 'Quantity:',
+        modalAddBtn: 'Add to Cart',
+        cartDrawerTitle: 'Your Cart',
+        cartDrawerSub: 'Pay via BenefitPay + WhatsApp Order',
+        cartNameLabel: 'Your Name:',
+        cartNamePlaceholder: 'Enter your name...',
+        cartReceiveLabel: 'Receive Type:',
+        receivePickup: 'Store Pickup',
+        receiveDelivery: 'Delivery',
+        cartPaymentLabel: 'Accepted Payment Method:',
+        cartBenefitPayBadge: 'BenefitPay Only',
+        cartTotalLabel: 'Total Amount:',
+        cartWhatsAppBtn: 'Send Order via WhatsApp',
+        itemStartsFrom: 'Starts from',
+        btnSelectSize: 'Choose Size & Order',
+        outOfStockBadge: 'Out of Stock',
+        outOfStockBtn: 'Currently Out of Stock',
+        cartEmptyTitle: 'Your cart is currently empty',
+        cartEmptySub: 'Choose your favorite beverages from the menu.',
+        qtyLabel: 'Qty:',
+        groupBadge: '1 to 12 Persons'
+      }
+    };
+
+    const MENU_CATEGORIES = [
+      { id: 'matcha', titleAr: 'ماتشا (من 1 إلى 12 شخص)', titleEn: 'Matcha (1 to 12 Persons)', icon: '🍵' },
+      { id: 'v60', titleAr: 'قهوة V60 المقطرة (من 1 إلى 12 شخص)', titleEn: 'V60 Pour-Over (1 to 12 Persons)', icon: '☕' },
+      { id: 'hotchoc', titleAr: 'هوت شوكو بالم (من 1 إلى 12 شخص)', titleEn: 'Hot Choco Palm (1 to 12 Persons)', icon: '🍫' }
+    ];
+
+    function formatBHD(amount) {
+      return `${Number(amount).toFixed(3)} د.ب`;
+    }
+
+    function syncDynamicStoreTexts() {
+      document.getElementById('dynamicTopBarNotice').textContent = currentLang === 'ar' ? storeData.topNoticeAr : storeData.topNoticeEn;
+      document.getElementById('dynamicTopBarPayment').textContent = currentLang === 'ar' ? storeData.paymentNoticeAr : storeData.paymentNoticeEn;
+
+      const waNum = storeData.whatsapp || '97338883635';
+      const formattedWa = waNum.startsWith('973') && waNum.length === 11
+        ? `+973 ${waNum.slice(3, 7)} ${waNum.slice(7)}`
+        : `+${waNum}`;
+      document.getElementById('footerWhatsAppDisplay').textContent = formattedWa;
+      document.getElementById('footerWhatsAppLink').href = `https://wa.me/${waNum}?text=${encodeURIComponent('السلام عليكم Lindas Palm')}`;
+    }
+
+    function refreshEntireUI() {
+      syncDynamicStoreTexts();
+      updateAdminUIState();
+      renderMenu();
+      updateCartUI();
+    }
+
+    window.toggleLanguage = function() {
+      currentLang = currentLang === 'ar' ? 'en' : 'ar';
+      const html = document.getElementById('htmlRoot');
+      
+      if (currentLang === 'en') {
+        html.setAttribute('lang', 'en');
+        html.setAttribute('dir', 'ltr');
+        document.getElementById('langSwitchText').textContent = 'العربية';
+      } else {
+        html.setAttribute('lang', 'ar');
+        html.setAttribute('dir', 'rtl');
+        document.getElementById('langSwitchText').textContent = 'English';
+      }
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+          el.textContent = translations[currentLang][key];
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[currentLang][key]) {
+          el.setAttribute('placeholder', translations[currentLang][key]);
+        }
+      });
+
+      document.getElementById('tempIcedText').textContent = currentLang === 'ar' ? 'بارد (Iced)' : 'Iced';
+      document.getElementById('tempHotText').textContent = currentLang === 'ar' ? 'حار (Hot)' : 'Hot';
+      document.getElementById('sweetNormalText').textContent = currentLang === 'ar' ? 'معتدل' : 'Normal';
+      document.getElementById('sweetNoneText').textContent = currentLang === 'ar' ? 'بدون سكر' : 'No Sugar';
+      document.getElementById('sweetExtraText').textContent = currentLang === 'ar' ? 'زيادة' : 'Extra';
+
+      refreshEntireUI();
+    };
+
+    window.renderMenu = function() {
+      const container = document.getElementById('menuContainer');
+      container.innerHTML = '';
+
+      const cats = currentFilter === 'all' ? MENU_CATEGORIES : MENU_CATEGORIES.filter(c => c.id === currentFilter);
+
+      cats.forEach(cat => {
+        const items = storeData.menuItems.filter(i => i.category === cat.id);
+        if (items.length === 0) return;
+
+        const catTitle = currentLang === 'ar' ? cat.titleAr : cat.titleEn;
+
+        const section = document.createElement('section');
+        section.className = 'space-y-4';
+        section.innerHTML = `
+          <div class="flex items-center gap-3 bg-cream border-2 border-olive rounded-2xl p-4 shadow-card-sage">
+            <span class="w-11 h-11 rounded-xl bg-sage border-2 border-olive flex items-center justify-center text-2xl">${cat.icon}</span>
+            <div><h4 class="font-display font-extrabold text-xl text-olive">${catTitle}</h4></div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5">
+            ${items.map(item => {
+              const name = currentLang === 'ar' ? item.nameAr : item.nameEn;
+              const desc = currentLang === 'ar' ? item.descAr : item.descEn;
+              const priceKeys = Object.keys(item.prices || {});
+              const firstPrice = priceKeys.length > 0 ? item.prices[priceKeys[0]] : 0;
+              const startsText = translations[currentLang].itemStartsFrom;
+              const btnText = translations[currentLang].btnSelectSize;
+              const badgeText = translations[currentLang].groupBadge;
+              const isOutOfStock = !!item.outOfStock;
+              const outOfStockLabel = translations[currentLang].outOfStockBadge;
+              const outOfStockBtnLabel = translations[currentLang].outOfStockBtn;
+
+              const quickAdminBtn = isAdminLoggedIn
+                ? `<button onclick="toggleProductStock('${item.id}')" class="px-2.5 py-1 rounded-xl ${isOutOfStock ? 'bg-red-600 text-white' : 'bg-olive text-sage'} text-[11px] font-bold hover:opacity-90"><i class="fa-solid ${isOutOfStock ? 'fa-rotate-left' : 'fa-ban'}"></i> ${isOutOfStock ? 'تفعيل' : 'إيقاف'}</button>`
+                : '';
+
+              const actionButtonHtml = isOutOfStock
+                ? `<button type="button" disabled class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-stone-200 text-stone-500 border-2 border-stone-400 font-extrabold text-sm cursor-not-allowed opacity-90">
+                    <i class="fa-solid fa-ban text-xs"></i><span>${outOfStockBtnLabel}</span>
+                  </button>`
+                : `<button onclick="openCustomizeModal('${item.id}')" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sage hover:bg-sage-dark text-olive border-2 border-olive font-extrabold text-sm shadow-xs transition-transform active:scale-95">
+                    <i class="fa-solid fa-plus text-xs"></i><span>${btnText}</span>
+                  </button>`;
+
+              return `
+                <div class="relative bg-cream border-2 ${isOutOfStock ? 'border-olive/50 bg-cream/75' : 'border-olive'} rounded-3xl p-5 flex flex-col justify-between shadow-card transition-all">
+                  <div>
+                    <div class="flex items-start justify-between gap-2 mb-3">
+                      <div class="w-14 h-14 rounded-2xl bg-cream-warm border-2 border-olive flex items-center justify-center text-3xl ${isOutOfStock ? 'grayscale opacity-60' : ''}">${item.emoji}</div>
+                      <div class="flex flex-wrap items-center justify-end gap-1.5">
+                        ${quickAdminBtn}
+                        ${isOutOfStock 
+                          ? `<span class="bg-red-600 text-white border border-olive text-xs font-extrabold px-3 py-1 rounded-full shadow-xs inline-flex items-center gap-1"><i class="fa-solid fa-circle-xmark text-[11px]"></i> ${outOfStockLabel}</span>`
+                          : `<span class="bg-blush text-olive border border-olive text-xs font-extrabold px-3 py-1 rounded-full">${badgeText}</span>`
+                        }
+                      </div>
+                    </div>
+
+                    <h5 class="font-display font-extrabold text-lg sm:text-xl ${isOutOfStock ? 'text-espresso/60' : 'text-espresso'} mb-1">${name}</h5>
+                    <p class="text-sm ${isOutOfStock ? 'text-espresso/55' : 'text-espresso/80'} leading-relaxed mb-4">${desc}</p>
+                  </div>
+
+                  <div class="pt-3 border-t-2 border-dashed border-olive/20 flex items-center justify-between gap-3">
+                    <div class="${isOutOfStock ? 'opacity-60' : ''}">
+                      <span class="block text-[11px] text-espresso/60 font-bold">${startsText}</span>
+                      <span class="font-display font-extrabold text-lg text-olive">${formatBHD(firstPrice)}</span>
+                    </div>
+                    ${actionButtonHtml}
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+        container.appendChild(section);
+      });
+    };
+
+    window.filterCategory = function(catId) {
+      currentFilter = catId;
+      document.querySelectorAll('.cat-tab').forEach(btn => {
+        if (btn.dataset.cat === catId) {
+          btn.className = 'cat-tab active px-4 py-2.5 rounded-2xl border-2 border-olive font-bold text-sm whitespace-nowrap bg-olive text-cream shadow-card';
+        } else {
+          btn.className = 'cat-tab px-4 py-2.5 rounded-2xl border-2 border-olive font-bold text-sm whitespace-nowrap bg-cream text-espresso hover:bg-sage/40';
+        }
+      });
+      renderMenu();
+    };
+
+    window.openCustomizeModal = function(itemId) {
+      const item = storeData.menuItems.find(i => i.id === itemId);
+      if (!item || item.outOfStock) return;
+
+      selectedItem = item;
+      modalQty = 1;
+
+      const name = currentLang === 'ar' ? item.nameAr : item.nameEn;
+      const desc = currentLang === 'ar' ? item.descAr : item.descEn;
+
+      document.getElementById('modalItemEmoji').textContent = item.emoji;
+      document.getElementById('modalItemName').textContent = name;
+      document.getElementById('modalItemDesc').textContent = desc;
+      document.getElementById('itemNoteInput').value = '';
+      document.getElementById('modalQtyDisplay').textContent = '1';
+
+      const sizeContainer = document.getElementById('modalSizeOptions');
+      sizeContainer.innerHTML = '';
+      const keys = Object.keys(item.prices || {});
+      
+      keys.forEach((key, idx) => {
+        const price = item.prices[key];
+        const isChecked = idx === 0 ? 'checked' : '';
+        if (idx === 0) selectedSizeKey = key;
+
+        sizeContainer.innerHTML += `
+          <label class="cursor-pointer block">
+            <input type="radio" name="sizeSelection" value="${key}" ${isChecked} onchange="selectSize('${key}')" class="peer sr-only">
+            <div class="flex items-center justify-between py-2.5 px-3 rounded-xl border-2 border-olive/30 bg-white peer-checked:bg-sage peer-checked:border-olive font-bold text-xs sm:text-sm">
+              <span>${key}</span><span class="text-olive">${formatBHD(price)}</span>
+            </div>
+          </label>
+        `;
+      });
+
+      const milkGroup = document.getElementById('milkOptionGroup');
+      const milkContainer = document.getElementById('milkOptionsContainer');
+      const allMilkOutBadge = document.getElementById('allMilkOutBadge');
+      const activeMilkOpts = storeData.milkOptions || [];
+
+      if (item.hasMilk && activeMilkOpts.length > 0) {
+        milkGroup.style.display = 'block';
+        milkContainer.className = activeMilkOpts.length === 3 ? 'grid grid-cols-3 gap-1.5' : 'grid grid-cols-2 gap-2';
+        
+        const availableMilk = activeMilkOpts.filter(m => !m.outOfStock);
+        if (availableMilk.length === 0) {
+          allMilkOutBadge.classList.remove('hidden');
+          allMilkOutBadge.textContent = currentLang === 'ar' ? 'الحليب نفذت الكمية' : 'Milk Out of Stock';
+        } else {
+          allMilkOutBadge.classList.add('hidden');
+        }
+
+        let firstAvailableAssigned = false;
+        milkContainer.innerHTML = activeMilkOpts.map((mObj) => {
+          const isOut = !!mObj.outOfStock;
+          let isChecked = '';
+          if (!isOut && !firstAvailableAssigned) {
+            isChecked = 'checked';
+            firstAvailableAssigned = true;
+          }
+          const label = currentLang === 'ar' ? mObj.labelAr : mObj.labelEn;
+          const outTag = currentLang === 'ar' ? 'نفذت الكمية' : 'Out of Stock';
+
+          if (isOut) {
+            return `
+              <div class="relative py-2 px-1.5 rounded-xl border-2 border-red-300 bg-stone-100 text-stone-400 font-bold text-xs text-center cursor-not-allowed select-none flex flex-col items-center justify-center gap-1">
+                <span class="line-through">${label}</span>
+                <span class="bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded-full font-extrabold leading-none">${outTag}</span>
+              </div>
+            `;
+          }
+
+          return `
+            <label class="cursor-pointer">
+              <input type="radio" name="milkType" value="${mObj.key}" ${isChecked} class="peer sr-only">
+              <div class="text-center py-2 px-1.5 rounded-xl border-2 border-olive/30 bg-white peer-checked:bg-sage peer-checked:border-olive font-bold text-xs h-full flex items-center justify-center">${label}</div>
+            </label>
+          `;
+        }).join('');
+      } else {
+        milkGroup.style.display = 'none';
+        milkContainer.innerHTML = '';
+      }
+
+      document.getElementById('tempOptionGroup').style.display = 'block';
+      document.getElementById('sweetnessOptionGroup').style.display = item.category === 'v60' ? 'none' : 'block';
+
+      updateModalPrice();
+
+      const modal = document.getElementById('customizeModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    };
+
+    window.selectSize = function(key) {
+      selectedSizeKey = key;
+      updateModalPrice();
+    };
+
+    function updateModalPrice() {
+      if (!selectedItem || !selectedSizeKey) return;
+      const unit = selectedItem.prices[selectedSizeKey] || 0;
+      document.getElementById('modalTotalPrice').textContent = formatBHD(modalQty * unit);
+    }
+
+    window.adjustModalQty = function(delta) {
+      modalQty = Math.max(1, modalQty + delta);
+      document.getElementById('modalQtyDisplay').textContent = modalQty;
+      updateModalPrice();
+    };
+
+    window.closeCustomizeModal = function() {
+      document.getElementById('customizeModal').classList.add('hidden');
+      document.getElementById('customizeModal').classList.remove('flex');
+    };
+
+    window.confirmAddToCart = function() {
+      if (!selectedItem || !selectedSizeKey || selectedItem.outOfStock) return;
+
+      const unitPrice = selectedItem.prices[selectedSizeKey] || 0;
+      let details = [`${currentLang === 'ar' ? 'المقاس' : 'Size'}: ${selectedSizeKey}`];
+      
+      const activeMilkOpts = storeData.milkOptions || [];
+      if (selectedItem.hasMilk && activeMilkOpts.length > 0) {
+        const availableMilk = activeMilkOpts.filter(m => !m.outOfStock);
+        if (availableMilk.length > 0) {
+          const milkKey = document.querySelector('input[name="milkType"]:checked')?.value || availableMilk[0].key;
+          const milkObj = availableMilk.find(m => m.key === milkKey) || availableMilk[0];
+          const milkDisplay = currentLang === 'ar' ? milkObj.labelAr : milkObj.labelEn;
+          details.push(`${currentLang === 'ar' ? 'الحليب' : 'Milk'}: ${milkDisplay}`);
+        } else {
+          details.push(`${currentLang === 'ar' ? 'الحليب' : 'Milk'}: ${currentLang === 'ar' ? 'نفذت الكمية (بدون حليب)' : 'Out of Stock (No Milk)'}`);
+        }
+      }
+
+      const temp = document.querySelector('input[name="tempType"]:checked')?.value || 'Iced';
+      details.push(`${currentLang === 'ar' ? 'الحرارة' : 'Temp'}: ${temp}`);
+
+      if (selectedItem.category !== 'v60') {
+        const sweet = document.querySelector('input[name="sweetType"]:checked')?.value || 'Normal';
+        details.push(`${currentLang === 'ar' ? 'الحلاوة' : 'Sweetness'}: ${sweet}`);
+      }
+
+      const note = document.getElementById('itemNoteInput').value.trim();
+      if (note) details.push(`${currentLang === 'ar' ? 'ملاحظة' : 'Note'}: ${note}`);
+
+      const detailsText = details.join(' • ');
+      const itemName = currentLang === 'ar' ? selectedItem.nameAr : selectedItem.nameEn;
+
+      const existing = cart.find(c => c.itemId === selectedItem.id && c.sizeKey === selectedSizeKey && c.details === detailsText);
+      if (existing) {
+        existing.qty += modalQty;
+      } else {
+        cart.push({
+          uid: Date.now() + Math.random().toString(36).substr(2, 4),
+          itemId: selectedItem.id,
+          name: itemName,
+          emoji: selectedItem.emoji,
+          sizeKey: selectedSizeKey,
+          details: detailsText,
+          qty: modalQty,
+          unitPrice: unitPrice
+        });
+      }
+
+      closeCustomizeModal();
+      updateCartUI();
+      showToast(currentLang === 'ar' ? `تمت إضافة "${itemName}" للسلة` : `Added "${itemName}" to cart`);
+    };
+
+    function calculateTotals() {
+      const subtotal = cart.reduce((sum, i) => sum + (i.qty * i.unitPrice), 0);
+      return { subtotal, finalTotal: subtotal };
+    }
+
+    function updateCartUI() {
+      cart = cart.filter(cItem => {
+        const menuProd = storeData.menuItems.find(m => m.id === cItem.itemId);
+        return menuProd && !menuProd.outOfStock;
+      });
+
+      const totalQty = cart.reduce((sum, i) => sum + i.qty, 0);
+      const { finalTotal } = calculateTotals();
+
+      document.getElementById('headerCartCount').textContent = totalQty;
+      document.getElementById('floatingCount').textContent = totalQty;
+      document.getElementById('floatingTotal').textContent = formatBHD(finalTotal);
+      document.getElementById('cartSummaryTotal').textContent = formatBHD(finalTotal);
+
+      const floatingBar = document.getElementById('floatingCartBar');
+      if (totalQty > 0) {
+        floatingBar.classList.remove('translate-y-28', 'opacity-0', 'pointer-events-none');
+        floatingBar.classList.add('translate-y-0', 'opacity-100');
+      } else {
+        floatingBar.classList.add('translate-y-28', 'opacity-0', 'pointer-events-none');
+        floatingBar.classList.remove('translate-y-0', 'opacity-100');
+      }
+
+      const container = document.getElementById('cartItemsContainer');
+      const footer = document.getElementById('cartFooter');
+
+      if (cart.length === 0) {
+        footer.style.display = 'none';
+        container.innerHTML = `
+          <div class="h-full flex flex-col items-center justify-center text-center py-12 px-4 space-y-3">
+            <div class="w-20 h-20 rounded-full bg-cream-warm border-2 border-olive flex items-center justify-center text-4xl">🍵</div>
+            <h4 class="font-display font-extrabold text-lg text-olive">${translations[currentLang].cartEmptyTitle}</h4>
+            <p class="text-sm text-espresso/70">${translations[currentLang].cartEmptySub}</p>
+          </div>
+        `;
+        return;
+      }
+
+      footer.style.display = 'block';
+      container.innerHTML = cart.map(item => `
+        <div class="bg-white border-2 border-olive rounded-2xl p-3.5 space-y-2 shadow-xs">
+          <div class="flex items-start justify-between gap-2">
+            <div class="flex items-center gap-2.5">
+              <span class="text-2xl bg-cream-warm w-10 h-10 rounded-xl border border-olive/30 flex items-center justify-center flex-shrink-0">${item.emoji}</span>
+              <div>
+                <h5 class="font-display font-extrabold text-sm text-olive">${item.name}</h5>
+                <span class="text-xs font-bold text-olive">${formatBHD(item.qty * item.unitPrice)}</span>
+              </div>
+            </div>
+            <button onclick="removeCartItem('${item.uid}')" class="text-espresso/50 hover:text-red-600 p-1"><i class="fa-solid fa-trash-can text-sm"></i></button>
+          </div>
+          <p class="text-xs text-espresso/75 bg-cream px-2.5 py-1.5 rounded-lg border border-olive/15">${item.details}</p>
+          <div class="flex items-center justify-between pt-1">
+            <span class="text-[11px] text-espresso/60">${translations[currentLang].qtyLabel} ${item.qty}</span>
+            <div class="flex items-center gap-2 bg-cream border border-olive rounded-xl px-1.5 py-0.5">
+              <button onclick="updateQty('${item.uid}', -1)" class="w-6 h-6 rounded-lg bg-blush font-bold text-xs flex items-center justify-center">-</button>
+              <span class="font-extrabold text-xs w-5 text-center">${item.qty}</span>
+              <button onclick="updateQty('${item.uid}', 1)" class="w-6 h-6 rounded-lg bg-sage font-bold text-xs flex items-center justify-center">+</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    window.updateQty = function(uid, delta) {
+      const idx = cart.findIndex(i => i.uid === uid);
+      if (idx === -1) return;
+      cart[idx].qty += delta;
+      if (cart[idx].qty <= 0) cart.splice(idx, 1);
+      updateCartUI();
+    };
+
+    window.removeCartItem = function(uid) {
+      cart = cart.filter(i => i.uid !== uid);
+      updateCartUI();
+    };
+
+    window.toggleCart = function(open) {
+      const drawer = document.getElementById('cartDrawer');
+      if (open) {
+        drawer.classList.remove('hidden');
+      } else {
+        drawer.classList.add('hidden');
+      }
+    };
+
+    window.sendOrderViaWhatsApp = function() {
+      if (cart.length === 0) return;
+
+      const name = document.getElementById('customerName').value.trim() || (currentLang === 'ar' ? 'غير محدد' : 'Not specified');
+      const orderType = document.getElementById('orderType').value;
+      const { finalTotal } = calculateTotals();
+      const waTarget = storeData.whatsapp || '97338883635';
+
+      let msg = currentLang === 'ar' 
+        ? `🌿 *طلب جديد من Lindas Palm* 🌿\n👤 *الاسم:* ${name}\n🛍️ *الاستلام:* ${orderType}\n💳 *طريقة الدفع المعتمدة:* بنفت باي (BenefitPay Only)\n────────────────────\n`
+        : `🌿 *New Order from Lindas Palm* 🌿\n👤 *Name:* ${name}\n🛍️ *Receive:* ${orderType}\n💳 *Payment Method:* BenefitPay Only\n────────────────────\n`;
+
+      cart.forEach((item, idx) => {
+        msg += `${idx + 1}. *${item.name}* (×${item.qty}) — ${(item.qty * item.unitPrice).toFixed(3)} BHD\n`;
+        msg += `   └ _${item.details}_\n`;
+      });
+
+      msg += `────────────────────\n`;
+      msg += currentLang === 'ar' ? `💰 *المجموع الكلي النهائي:* *${finalTotal.toFixed(3)} د.ب*\n` : `💰 *Final Total Amount:* *${finalTotal.toFixed(3)} BHD*\n`;
+
+      const url = `https://wa.me/${waTarget}?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    };
+
+    let toastTimer;
+    window.showToast = function(text) {
+      const toast = document.getElementById('toastNotification');
+      document.getElementById('toastMessage').textContent = text;
+      toast.classList.remove('opacity-0', '-translate-y-4');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('opacity-0', '-translate-y-4');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 2800);
+    };
+
+    loadStoreData();
+    checkAdminSession();
+    refreshEntireUI();
+  </script>
+</body>
+</html>
